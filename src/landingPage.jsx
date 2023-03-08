@@ -58,13 +58,13 @@ function LandingPage() {
             const branch = kena[i][0]
             const code = kena[i][1]
   
-            curr.push(`${code} - ${branch}`);
+            curr.push({label:`${code} - ${branch}` , value :branch});
         }
        return
       }) ();
       
       setStateLOV(curr);
-      console.log(stateLOV);
+      console.log(stateLOV , branch , "hjhjj");
   },[])
   
     const handleInputs=()=>{
@@ -87,7 +87,7 @@ function LandingPage() {
             const res = results[i]
 
             output.push(res)
-            console.log(output)
+            console.log(output ,"out")
             setOuts(output);
 
           }
@@ -115,7 +115,7 @@ function LandingPage() {
             </div>
             <div></div>
             <div className='row'>
-              <InputField label={"Customer ID"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onChange={(e)=>setCustomerID(e.target.value)} placeholder={"Please Enter Customer ID"}/>
+              <InputField label={"Customer ID"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onChange={(e)=>{setCustomerID(e.target.value); handleInputs()}} placeholder={"Please Enter Customer ID"}/>
             </div>
         </div>
         <div className="field" >
@@ -138,16 +138,16 @@ function LandingPage() {
             </div>  
         <div></div>
         <div className='row'>
-        <InputField label={"Phone Number"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onChange={(e)=>setPhoneNumber(e.target.value)}  placeholder={"Enter Phone Number"} pattern="[0-9]{10}"/>
+        <InputField label={"Phone Number"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onChange={(e)=>{setPhoneNumber(e.target.value) ; handleInputs()}}  placeholder={"Enter Phone Number"} pattern="[0-9]{10}"/>
        </div>
       </div>  
       <div className="field" >
         <div className='row'>
-          <ListOfValue label={"Branch"} fullWidth={"100%"} labelWidth={"35%"} lovWidth={"65%"} onChange={(e)=>setBranch(e.target.value)} lovData={stateLOV}/>
+          <ListOfValue label={"Branch"} fullWidth={"100%"} labelWidth={"35%"} lovWidth={"65%"} branch={branch} setBranch={setBranch} handleInputs={handleInputs} lovData={stateLOV}/>
         </div>
         <div></div>
         <div className='row'>
-          <SelectField  label={"Relationship Type"} fullWidth={"100%"} labelWidth={"35%"} selectWidth={"52.6%"} onChange={(e)=>setRelationshipType(e.target.value)} options={["Personal","Corporate"]}/>
+          <SelectField  label={"Relationship Type"} fullWidth={"100%"} labelWidth={"35%"} selectWidth={"52.6%"} relationshipType={relationshipType} setRelationshipType={setRelationshipType} options={["SA - PERSONAL","SA - CORPORATE"]}  handleInputs={handleInputs}/>
        </div>
       </div>
     </div>  

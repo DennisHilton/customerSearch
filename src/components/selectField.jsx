@@ -5,7 +5,9 @@ import {Select} from "@mantine/core";
 import Label from "./label";
 import '../MasterCss.css';
 
-function SelectField({required,labelWidth,fullWidth,selectWidth,type, label, maxLength,options}) {
+function SelectField({required,labelWidth,fullWidth,selectWidth,type, label, maxLength,options,relationshipType,setRelationshipType,handleInputs}) {
+
+  console.log(relationshipType, "dodo");
   
   const handleOpen = () => {
     var focusTrigger = document.getElementById("theField");
@@ -35,6 +37,8 @@ function SelectField({required,labelWidth,fullWidth,selectWidth,type, label, max
         }
         styles={{ rightSection: { pointerEvents:"none" } }}
         data={options}
+        // onClick={(e)=>{setRelationshipType(e.target.value)}}
+        onChange={(e)=>{setRelationshipType(e) ; handleInputs()}}
       />
       </div>
       </div>

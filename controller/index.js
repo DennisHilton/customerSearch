@@ -261,12 +261,14 @@ index.get('/get-branch', (req,res) => {
 index.post('/get-customer-details', (req,res) => {
 
   const customerName = req.body.customerName;
-  // const customerID = "'"+req.body.customerID+"'";
-  // const phoneNumber = "'"+req.body.phoneNumber+"'";
-  // const branch = "'"+req.body.branch+"'";
-  // const relationshipType = "'"+req.body.relationshipType+"'";
+  const customerID = req.body.customerID;
+  const phoneNumber = req.body.phoneNumber;
+  const branch = req.body.branch;
+  const relationshipType = req.body.relationshipType;
 
-  async function getBranch(){
+  console.log(branch , "branch")
+  
+  async function getDetails(){
     let con;
       try { 
       
@@ -280,9 +282,27 @@ index.post('/get-customer-details', (req,res) => {
         console.log("i say i dey insidee");
       }
 
+      let determinant = ""
+    
+      if(customerName){
+       determinant = `ACCOUNT_DESCRP LIKE '%${customerName}%`
+      }
+      if(customerID){
+       determinant = `CUSTOMER_NUMBER = '${customerID}`
+      }
+       if(phoneNumber){
+       determinant = `PHONE LIKE '%${phoneNumber}%`
+      }
+      if(branch){   
+        determinant = `BRANCH = '${branch}`
+       }
+      if(relationshipType){
+        determinant = `PRODUCT = '${relationshipType}`
+       }
+       
       const data = await con.execute(
         `SELECT ACCOUNT_DESCRP,CUSTOMER_NUMBER,PHONE,BRANCH,PRODUCT FROM CASA_ACCT_LIST
-        WHERE  ACCOUNT_DESCRP LIKE '%${customerName}%' 
+        WHERE  ${determinant}' 
         `
         );
         // CUSTOMER_NUMBER = ${customerID}
@@ -303,7 +323,7 @@ index.post('/get-customer-details', (req,res) => {
         res.send(err);
       }
      }
-     getBranch();
+     getDetails();
     }
     
 
