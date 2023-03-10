@@ -1,7 +1,7 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
 
-function DataTable({ title,rowsPerPage,Data}) {
+function DataTable({ title,rowsPerPage,Data,dataProcessingInfo}) {
   const arr = [];
 
   Data.map((i)=>{
@@ -11,10 +11,13 @@ function DataTable({ title,rowsPerPage,Data}) {
   const columns = ["Customer ID", "Relation No", "Customer Name", "Phone", "Date Of Birth", "Branch", "Created By", "Relationship Type"]
   const options = {
                     filterType: "checkbox",
-                    rowsPerPage: rowsPerPage, 
+                    rowsPerPage: rowsPerPage,
+                    textLabels: {
+                      body: { noMatch: dataProcessingInfo } }
                   };
   const data =   arr
-                   console.log(data)
+
+console.log(data)
   
   return (
     <div>

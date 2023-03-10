@@ -9,7 +9,7 @@ import '../MasterCss.css';
 
 function ListOfValue({label,type,maxLength,required,labelWidth,fullWidth,lovWidth,lovData,branch,setBranch,handleInputs}) {
   console.log(lovData , "lovdata")
-  console.log(branch , "nnn");
+ 
   const handleOpen = () => {
     var focusTrigger = document.getElementById("theField");
     focusTrigger.focus();
@@ -39,7 +39,7 @@ function ListOfValue({label,type,maxLength,required,labelWidth,fullWidth,lovWidt
         styles={{ rightSection: { pointerEvents:"none" } }}
         data={lovData}
         // onClick={(e)=>{setBranch(e.target.lovData)}
-        onChange={(e)=>{setBranch(e) ; handleInputs()}}
+        onBlur={(e)=>{setBranch(e) ; handleInputs()}}
     
         
         

@@ -265,8 +265,8 @@ index.post('/get-customer-details', (req,res) => {
   const phoneNumber = req.body.phoneNumber;
   const branch = req.body.branch;
   const relationshipType = req.body.relationshipType;
-
-  console.log(branch , "branch")
+  
+  console.log(req.body , "branch")
   
   async function getDetails(){
     let con;
@@ -285,24 +285,28 @@ index.post('/get-customer-details', (req,res) => {
       let determinant = ""
     
       if(customerName){
-       determinant = `ACCOUNT_DESCRP LIKE '%${customerName}%`
+    
+       determinant = `ACCOUNT_DESCRP LIKE '%${customerName}%'`
       }
       if(customerID){
-       determinant = `CUSTOMER_NUMBER = '${customerID}`
+        // if(determinant) determinant += ` AND CUSTOMER_NUMBER = '${customerID}'`
+        determinant = `CUSTOMER_NUMBER = '${customerID}'`
       }
        if(phoneNumber){
-       determinant = `PHONE LIKE '%${phoneNumber}%`
+       determinant = `PHONE LIKE '%${phoneNumber}%'`
       }
       if(branch){   
-        determinant = `BRANCH = '${branch}`
+        determinant = `BRANCH = '${branch}'`
        }
       if(relationshipType){
-        determinant = `PRODUCT = '${relationshipType}`
+        determinant = `PRODUCT = '${relationshipType}'`
        }
        
+       console.log(determinant , "DETER")
+
       const data = await con.execute(
         `SELECT ACCOUNT_DESCRP,CUSTOMER_NUMBER,PHONE,BRANCH,PRODUCT FROM CASA_ACCT_LIST
-        WHERE  ${determinant}' 
+        WHERE  ${determinant} 
         `
         );
         // CUSTOMER_NUMBER = ${customerID}
@@ -310,6 +314,7 @@ index.post('/get-customer-details', (req,res) => {
         // BRANCH = ${branch}
         // PRODUCT = ${relationshipType}   
          
+        console.log(data , "data")
         res.send(data.rows);
 
       // localStorage.setItem("codescs", data);

@@ -8,7 +8,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Overlay from 'react-bootstrap/Overlay'
+import Overlay from 'react-bootstrap/Overlay';
+import LoadingOverlay from 'react-loading-overlay';
 
 import Datatable from './components/datatable';
 import Label from './components/label';
@@ -18,6 +19,7 @@ import Buttonn from './components/button';
 import ListOfValue from './components/ListOfValues';
 import Selectt from './components/selectField';
 import SelectField from './components/selectField';
+import Loader from './components/spinner';
 
 
 function LandingPage() {
@@ -34,11 +36,12 @@ function LandingPage() {
   const [out,setOuts] = useState([]);
   
   const [stateLOV, setStateLOV] = useState([])
+  const [loader,setLoader] = useState(false);
 
   var curr = [];
   let output = []; 
   
-
+  console.log(customerName)
     useEffect(()=> {
       const getBranch=()=>{
      return axios.get('http://localhost:8000/get-branch')
@@ -68,6 +71,7 @@ function LandingPage() {
   },[])
   
     const handleInputs=()=>{
+      setLoader(true)
         axios.post("http://localhost:8000/get-customer-details",
         {
           customerName:customerName,  
@@ -75,12 +79,11 @@ function LandingPage() {
           phoneNumber:phoneNumber,
           branch:branch,
           relationshipType:relationshipType,
-        })
-        .then((response)=>{
+        }).then((response)=>{
           //  output.push(response.data[0]);
           //  console.log(output);
           let results = response.data;
-          console.log(results, "dldldl");
+          console.log(results, "yolooooo");
 
           for (let i=0;i<results.length;i++) {
 
@@ -89,6 +92,7 @@ function LandingPage() {
             output.push(res)
             console.log(output ,"out")
             setOuts(output);
+            setLoader(false);
 
           }
           return
@@ -105,40 +109,30 @@ function LandingPage() {
 
   
   return (
+  
   <div className="motherContainer">
     {/* <Header icon={<FaUserTie/>} label={"Customer Search Enquiry"} handleClose={handleClose}/> */}
     
     <div className="body">
         <div className="field" >
             <div className='row'>
-              <InputField label={"Customer Name"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputFieldL"} onChange={(e)=>{setCustomerName(e.target.value) ; handleInputs()}} onkeydown={"return /[a-z\-]/i.test(event.key)"} placeholder={"Please Enter Customer Name"}/>
+              <InputField label={"Customer Name"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputFieldL"} onBlur={(e)=>{setCustomerName(e.target.value) ; handleInputs()}} placeholder={"Please Enter Customer Name"}/>
             </div>
             <div></div>
             <div className='row'>
-              <InputField label={"Customer ID"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onChange={(e)=>{setCustomerID(e.target.value); handleInputs()}} placeholder={"Please Enter Customer ID"}/>
+              <InputField label={"Customer ID"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onBlur={(e)=>{setCustomerID(e.target.value); handleInputs()}} placeholder={"Please Enter Customer ID"}/>
             </div>
         </div>
         <div className="field" >
             <div className='row master_dates'>
-              {/* <div className='row' style={{width:"35%",whiteSpace: "nowrap"}}>+++++++++++++++++++++
-                <label >Date Of Birth</label>
-              </div>
-          <div className='row' style={{width:"65%",whiteSpace: "nowrap"}}>
-          <input className='date' type='date' onChange={(e)=>setDate(e.target.value)}/>
-             <div style={{marginLeft:"15%",marginRight:"16%"}}>
-              <label>To :</label>
-            </div>
-            <input className='date'  type='date'/>  
-          </div> */}
-         
-          <InputField label={"Date Of Incorp/Birth"} fullWidth={"65%"} labelWidth={"54%"}  dateWidth={"43%"} type={"date"}/>
-          <InputField label={"To:"} fullWidth={"35%"} labelWidth={"25%"} dateWidth={"75%"} type={"date"} />
+              <InputField label={"Date Of Incorp/Birth"} fullWidth={"65%"} labelWidth={"54%"}  dateWidth={"43%"} type={"date"}/>
+              <InputField label={"To:"} fullWidth={"35%"} labelWidth={"25%"} dateWidth={"75%"} type={"date"} />
          
           {/* <InputField type={"date"} width={"25%"}/> */}
             </div>  
         <div></div>
         <div className='row'>
-        <InputField label={"Phone Number"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onChange={(e)=>{setPhoneNumber(e.target.value) ; handleInputs()}}  placeholder={"Enter Phone Number"} pattern="[0-9]{10}"/>
+        <InputField label={"Phone Number"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onBlur={(e)=>{setPhoneNumber(e.target.value) ; handleInputs()}}  placeholder={"Enter Phone Number"} pattern="[0-9]{10}"/>
        </div>
       </div>  
       <div className="field" >
@@ -152,13 +146,41 @@ function LandingPage() {
       </div>
     </div>  
     <div className='buttons'> 
-        <Buttonn buttonName="Fetch" width={"70px"}/>
-        <Buttonn buttonName='Refresh' width={"70px"}/>
+        <Buttonn buttonName='Refresh' width={"80px"}/>
       </div>
+      <LoadingOverlay
+    active={loader}
+    spinner
+    text='Loading your content...'
+     styles={{
+        overlay: (base) => ({
+          ...base,
+          background: 'rgba(235, 234, 234, 0.481)'
+        }),
+        spinner: (base) => ({
+          ...base,
+          width: '100px',
+          '& svg circle': {
+            stroke: 'rgb(21 163 183)'
+          }
+        }),
+        text: (base) => ({
+          ...base,
+          background: 'rgb(21 163 183)'
+        }),
+        // wrapper: {
+        //   width: '400px',
+        //   height: '400px',
+        //   overflow: active ? 'hidden' : 'scroll'
+        // }
+
+      }}
+    >
     <div className='datatable'>
         <Datatable Data={out}/>
         
     </div>
+  </LoadingOverlay>
   </div>
     
   );
