@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "./landingPage";
-import Customer from "./customer";
+import CustomerDetails from "./screens/customerDetails";
+import CustomerSearch from "./screens/CustomerSearch";
 
 function App() {
   return (
     <div className="app">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/individualamendment/customer" element={<Customer />} />
+          <Route path="/" element={<CustomerSearch />} />
+          <Route path="/individualamendment/customer" element={<CustomerDetails/>} />
         </Routes>
       </BrowserRouter>
     </div>

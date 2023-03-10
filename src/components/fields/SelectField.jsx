@@ -2,10 +2,10 @@ import React from "react";
 
 import { BsChevronDown } from "react-icons/bs";
 import {Select} from "@mantine/core";
-import Label from "./label";
-import '../MasterCss.css';
+import Label from "../label/Label";
 
-function SelectField({required,labelWidth,fullWidth,selectWidth,type, label, maxLength,options,relationshipType,setRelationshipType,handleInputs}) {
+
+function SelectField({labelWidth,selectWidth,label,required,fullWidth,type,maxLength,options,relationshipType,setRelationshipType,handleInputs}) {
 
   
   const handleOpen = () => {
@@ -37,7 +37,7 @@ function SelectField({required,labelWidth,fullWidth,selectWidth,type, label, max
         styles={{ rightSection: { pointerEvents:"none" } }}
         data={options}
         // onClick={(e)=>{setRelationshipType(e.target.value)}}
-        onBlur={(e)=>{setRelationshipType(e) ; handleInputs()}}
+        onChange={(e)=>{setRelationshipType(e) ; handleInputs()}}
       />
       </div>
       </div>

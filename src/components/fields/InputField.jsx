@@ -1,10 +1,11 @@
 import React from "react";
-import Label from "./label";
-import '../MasterCss.css';
+
+
 import { IoCalendarOutline } from "react-icons/io5";
 import { DatePicker } from "@mantine/dates";
+import Label from "../label/Label";
 
-function InputField({label,placeholder,type,colorr,maxLength,disabled,required,fullWidth,inputWidth,labelWidth,dateWidth,onBlur,value,className}) 
+function InputField({labelWidth,inputWidth,dateWidth,label,placeholder,type,maxLength,disabled,required,fullWidth,onChange,value,className}) 
 {
   // disabled & required should be true or false, width should be in percentages, type: tel, number, text
  
@@ -34,7 +35,7 @@ function InputField({label,placeholder,type,colorr,maxLength,disabled,required,f
         min={type === "number" && 0}
         disabled={disabled}
         placeholder={placeholder}
-        onChange={onBlur}
+        onChange={onChange}
         value={value}
         
     />

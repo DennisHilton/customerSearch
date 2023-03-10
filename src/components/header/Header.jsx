@@ -1,7 +1,6 @@
 import React from 'react';
-import '../MasterCss.css'
-import Label from './label';
 
+import Label from '../label/Label';
 import {AiOutlineClose} from 'react-icons/ai';
 
 

@@ -1,4 +1,5 @@
 import React from "react";
+
 import MUIDataTable from "mui-datatables";
 
 function DataTable({ title,rowsPerPage,Data,dataProcessingInfo}) {

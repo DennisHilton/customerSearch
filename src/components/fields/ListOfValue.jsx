@@ -1,13 +1,13 @@
 import React from "react";
-import { useState} from 'react';
 
+import Label from "../label/Label";
+import { useState} from 'react';
 import { IoMdSearch } from "react-icons/io";
 import { FiFeather } from "react-icons/fi";
 import {Select} from "@mantine/core";
-import Label from "./label";
-import '../MasterCss.css';
 
-function ListOfValue({label,type,maxLength,required,labelWidth,fullWidth,lovWidth,lovData,branch,setBranch,handleInputs}) {
+
+function ListOfValue({lovWidth,labelWidth,lovData,fullWidth,label,type,maxLength,required,branch,setBranch,handleInputs}) {
   console.log(lovData , "lovdata")
  
   const handleOpen = () => {
@@ -39,7 +39,7 @@ function ListOfValue({label,type,maxLength,required,labelWidth,fullWidth,lovWidt
         styles={{ rightSection: { pointerEvents:"none" } }}
         data={lovData}
         // onClick={(e)=>{setBranch(e.target.lovData)}
-        onBlur={(e)=>{setBranch(e) ; handleInputs()}}
+        onChange={(e)=>{setBranch(e) ; handleInputs()}}
     
         
         

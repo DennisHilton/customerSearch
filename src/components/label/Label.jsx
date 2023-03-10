@@ -1,5 +1,5 @@
 import React from 'react';
-import '../MasterCss.css';
+
 
 function Label(props) {
   return (

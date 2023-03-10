@@ -1,28 +1,22 @@
 import { useState, useEffect} from 'react';
-import './MasterCss.css';
+
 import axios from 'axios';
 
 import {FaUserTie} from 'react-icons/fa';
 import {AiOutlineClose} from 'react-icons/ai';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Popover from 'react-bootstrap/Popover';
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Overlay from 'react-bootstrap/Overlay';
 import LoadingOverlay from 'react-loading-overlay';
 
-import Datatable from './components/datatable';
-import Label from './components/label';
-import Header from './components/Header';
-import InputField from './components/InputField';
-import Buttonn from './components/button';
-import ListOfValue from './components/ListOfValues';
-import Selectt from './components/selectField';
-import SelectField from './components/selectField';
-import Loader from './components/spinner';
+import Label from '../components/label/Label';
+import Header from '../components/header/Header';
+import InputField from '../components/fields/InputField';
+import Buttonn from '../components/button/Button';
+import ListOfValue from '../components/fields/ListOfValue';
+import SelectField from '../components/fields/SelectField';
+import DataTable from '../components/data-table/Datatable';
 
-
-function LandingPage() {
+function CustomerSearch() {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose= () =>setShow(false);
@@ -40,6 +34,10 @@ function LandingPage() {
 
   var curr = [];
   let output = []; 
+
+  const pageRefresh=()=>{
+    window.location.reload();
+  }
   
   console.log(customerName)
     useEffect(()=> {
@@ -55,11 +53,11 @@ function LandingPage() {
       });
   
       ( () => {
-       const kena = JSON.parse(localStorage.getItem("getBranch"));
-        for(let i = 0; i < kena.length; i++)
+       const DB = JSON.parse(localStorage.getItem("getBranch"));
+        for(let i = 0; i < DB.length; i++)
         {
-            const branch = kena[i][0]
-            const code = kena[i][1]
+            const branch = DB[i][0]
+            const code = DB[i][1]
   
             curr.push({label:`${code} - ${branch}` , value :branch});
         }
@@ -116,11 +114,11 @@ function LandingPage() {
     <div className="body">
         <div className="field" >
             <div className='row'>
-              <InputField label={"Customer Name"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputFieldL"} onBlur={(e)=>{setCustomerName(e.target.value) ; handleInputs()}} placeholder={"Please Enter Customer Name"}/>
+              <InputField label={"Customer Name"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputFieldL"} onChange={(e)=>{setCustomerName(e.target.value) ; handleInputs()}} placeholder={"Please Enter Customer Name"}/>
             </div>
             <div></div>
             <div className='row'>
-              <InputField label={"Customer ID"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onBlur={(e)=>{setCustomerID(e.target.value); handleInputs()}} placeholder={"Please Enter Customer ID"}/>
+              <InputField label={"Customer ID"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onChange={(e)=>{setCustomerID(e.target.value); handleInputs()}} placeholder={"Please Enter Customer ID"}/>
             </div>
         </div>
         <div className="field" >
@@ -132,7 +130,7 @@ function LandingPage() {
             </div>  
         <div></div>
         <div className='row'>
-        <InputField label={"Phone Number"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onBlur={(e)=>{setPhoneNumber(e.target.value) ; handleInputs()}}  placeholder={"Enter Phone Number"} pattern="[0-9]{10}"/>
+        <InputField label={"Phone Number"} fullWidth={"100%"} labelWidth={"35%"} inputWidth={"65%"} className={"inputField"} type={"number"} onChange={(e)=>{setPhoneNumber(e.target.value) ; handleInputs()}}  placeholder={"Enter Phone Number"} pattern="[0-9]{10}"/>
        </div>
       </div>  
       <div className="field" >
@@ -141,12 +139,12 @@ function LandingPage() {
         </div>
         <div></div>
         <div className='row'>
-          <SelectField  label={"Relationship Type"} fullWidth={"100%"} labelWidth={"35%"} selectWidth={"52.6%"} relationshipType={relationshipType} setRelationshipType={setRelationshipType} options={["SA - PERSONAL","SA - CORPORATE"]}  handleInputs={handleInputs}/>
+          <SelectField label={"Relationship Type"} fullWidth={"100%"} labelWidth={"35%"} selectWidth={"52.6%"} relationshipType={relationshipType} setRelationshipType={setRelationshipType} options={["SA - PERSONAL","SA - CORPORATE"]}  handleInputs={handleInputs}/>
        </div>
       </div>
     </div>  
     <div className='buttons'> 
-        <Buttonn buttonName='Refresh' width={"80px"}/>
+        <Buttonn buttonName='Refresh' onClick={()=>pageRefresh()} width={"80px"}/>
       </div>
       <LoadingOverlay
     active={loader}
@@ -177,7 +175,7 @@ function LandingPage() {
       }}
     >
     <div className='datatable'>
-        <Datatable Data={out}/>
+        <DataTable Data={out}/>
         
     </div>
   </LoadingOverlay>
@@ -186,4 +184,4 @@ function LandingPage() {
   );
 }
 
-export default LandingPage;
+export default CustomerSearch;

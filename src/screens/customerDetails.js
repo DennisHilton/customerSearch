@@ -1,5 +1,4 @@
 import { useState, useEffect} from 'react';
-import './MasterCss.css';
 import axios from 'axios';
 
 import {FaUserTie} from 'react-icons/fa';
@@ -14,15 +13,16 @@ import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Overlay from 'react-bootstrap/Overlay';
 
-import Datatable from './components/datatable';
-import Label from './components/label';
-import Header from './components/Header';
-import InputField from './components/InputField';
+import Datatable from '../components/data-table/Datatable';
+// import Label from '../components/label/label';
+import Header from '../components/header/Header';
+import InputField from '../components/fields/InputField';
 
-import Buttonn from './components/button';
-import ListOfValue from './components/ListOfValues';
+import Buttonn from '../components/button/Button';
+import ListOfValue from '../components/fields/ListOfValue';
+import Label from '../components/label/Label';
 
-function Customer() {
+function CustomerDetails() {
 
   
 
@@ -206,4 +206,4 @@ return (
 
 }
 
-export default Customer;
+export default CustomerDetails ;

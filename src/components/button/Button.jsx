@@ -1,10 +1,10 @@
 import React from "react";
-import '../MasterCss.css';
 
-function Buttonn({buttonName,icon,width}) {
+function Buttonn({buttonName,icon,width,onClick}) {
     // height should be in percentages and width should be in pixels
+   
   return (
-      <button style={{width:width}} >{buttonName} {icon}</button>
+      <button style={{width:width}} onClick={onClick} >{buttonName} {icon}</button>
   );
 }
 
